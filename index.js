@@ -1,7 +1,12 @@
 import express from "express";
+
+import path from "path";
 // type:module OVO JE BOLJE MODERNIJE
 // typle: commonjs je ono od prije, const express= require("express");
 const app= express();
+const __dirname= path.resolve();
+
+
 
 let PORT=8000;
 
@@ -19,7 +24,7 @@ app.listen(PORT, () => {
 
 app.get("/", (req, res) => {
 	console.log("pozvana je get metoda na definiranom endpointu")
-	res.send("poz kmice iz servera")
+	res.sendFile(__dirname + "/public/hello.html")
 })
 
 let pizze =[
@@ -35,4 +40,21 @@ app.get("/pizze", (req, res) => {
 	res.json(pizze)
 })
 
-//poslužitelj sluša na portu 
+app.get("/about", (req, res) => {
+	console.log("ovo će ispisati o nama")
+	res.sendFile(__dirname + "/public/about.html")
+})
+
+
+
+let useri =[
+	{id:1, ime: "Bore", prezime: "Balboa"},
+	{id:2, ime: "Karlo", prezime: "Markota"},
+	{id:3, ime: "Lokki", prezime: "SBL"},
+]
+
+
+app.get("/users", (req, res) =>{
+	console.log("ovo će vratiti korisnike")
+	res.json(useri)
+})
